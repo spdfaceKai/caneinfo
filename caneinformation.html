@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<title>Thailand Cane and Sugar Information</title>
+<head>
+<!-- Global Site Tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-82454996-2"></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js'></script>
+<script src="/js/index.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.13.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.13.0/firebase-messaging.js"></script>
+<script src="/curlPush2/getTokenDev.js"></script>
+<link rel="icon" type="image/jpg" href="img/SongTabber.jpg"/>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-82454996-2');
+</script>
+
+</head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="ศูนย์ข้อมูลอ้อยและน้ำตาลไทย">
+<meta name="keywords" content="เว็บไซต์นี้รวบรวมข้อมูลการหีบอ้อย,การผลิตน้ำตาล,รายวัน,สะสม,ประเทศไทย,ไทย,ส่งออกน้ำตาล,ส่งออกกากน้ำตาล,ผลิตกากน้ำตาล,ผลิตเอทานอล,บริโภคน้ำตาลในประเทศ">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bai Jamjuree">
+
+<style>
+body,h1,h3,h4,h5 {font-family: "Bai Jamjuree", sans-serif}
+body, html {height: 100%}
+.bgimg {
+    background-image: url('/img/background2019.jpg');
+    min-height: 100%;
+    background-position: center;
+    background-size: cover;
+}
+</style>
+<body>
+
+<!--Pop up-->
+<div id="myModal" class="w3-modal">
+  <div class="w3-modal-content w3-animate-zoom">
+    <div class="w3-container w3-black">
+      <span onclick="document.getElementById('myModal').style.display='none'" class="w3-button w3-display-topright w3-large">x</span>
+      <h3>ข้อมูลอัพเดทใหม่ล่าสุด</h3>
+    </div>
+    <div class="w3-container">
+		<h5><a href="https://songtabber.com/caneinfo_api/public/chart/end">ข้อมูลการหีบอ้อยและการผลิตเมื่อปิดหีบย้อนหลัง 16 ปี แบบเบ็ดเสร็จ</a></h5>
+		<h5><a href="https://songtabber.com/caneinfo_api/public/crushing/chart">ข้อมูลการหีบอ้อยและการผลิตย้อนหลัง 7 ปี แบบเบ็ดเสร็จ</a></h5>
+		<h5><a href="https://paopanp.users.earthengine.app/view/thailand-precipitation">ปริมาณน้ำฝนย้อนหลัง</a></h5>
+		<h5><a href="/caneproject/sumcanecrush19-20.html">ปริมาณอ้อยเข้าหีบสะสม 62/63</a></h5>
+		<h5><a href="/caneproject/dailycanecrush19-20.html">ปริมาณอ้อยเข้าหีบรายวัน 62/63</a></h5>
+		<h5><a href="/caneproject/sumcanecrushCompare62-63.html">เปรียบเทียบอ้อยเข้าหีบสะสม 62/63 กับ 61/62</a>
+		<h5><a href="/caneproject/dailycanecrushCompare62-63.html">เปรียบเทียบอ้อยเข้าหีบรายวัน 62/63 กับ 61/62</a>
+		<h5><a href="/caneproject/monthlyexporthistory.html">ปริมาณการส่งออกน้ำตาลรายเดือน 62/63</a></h5>
+		<h5><a href="/caneproject/monthly_sugar_domestic_history.html">ปริมาณการบริโภคน้ำตาลในประเทศรายเดือน</a></h5>
+		<h5><a href="/caneproject/annual_sugar_domestic_history.html">ปริมาณการบริโภคน้ำตาลในประเทศรายปี</a></h5>
+    </div>
+  </div>
+</div>
+
+<div class="bgimg w3-display-container w3-text-white">
+  <div class="w3-display-topleft w3-container w3-xlarge">
+	<p class="w3-padding w3-black w3-opacity-min"><b>TCSIC</b></p> <span class="w3-hide-small w3-text-white">ศูนย์ข้อมูลอ้อยและน้ำตาลไทย</span>
+  </div>
+  <div class="w3-display-middle w3-container w3-xlarge">
+    <p><button onclick="document.getElementById('menu').style.display='block'" class="w3-button w3-black">ข้อมูลการผลิต</button></p>
+  </div>
+  <div class="w3-display-topright w3-container w3-xlarge">
+    <p><a href="/caneinformation-Eng.html" class="w3-button w3-black">Eng</a></p>
+  </div>  
+  <div class="w3-display-bottomleft w3-container w3-medium">
+  	<p><button onclick="initFirebaseMessagingRegistration()" class="w3-button w3-white" >กดรับแจ้งเตือน</button></p>
+    <p><button onclick="document.getElementById('contact').style.display='block'" class="w3-button w3-black" >ลิงค์ที่เกี่ยวข้อง</button></p>
+	<p><button onclick="document.getElementById('aboutUs').style.display='block'" class="w3-button w3-black" >เกี่ยวกับเว็บไซต์</button></p>
+	<!--p><a href="/curlPush2/sendDev2.php" class="w3-button w3-white" >Admin</a></p-->
+	<p class="w3-small w3-text-white">กรุงเทพมหานคร 2560</p>
+    <p class="w3-small w3-text-white">powered by PSTB</p>
+	<p class="w3-small w3-hide-small w3-text-white">ใช้งานได้ดีบน PC ผ่าน Chrome Edge และFirefox (IE แสดงผลไม่ถูกต้อง) บนMobile ระบบ Android</p>
+  </div>
+</div>
+
+<!-- Menu Modal -->
+<div id="menu" class="w3-modal">
+  <div class="w3-modal-content w3-animate-zoom">
+	<div class="w3-container w3-black w3-display-container">
+      <span onclick="document.getElementById('menu').style.display='none'" class="w3-button w3-display-topright w3-large">x</span>
+      <h3>ข้อมูลการผลิตปี 2562/63</h3>
+    </div>
+    <div class="w3-container">
+      <h5><a href="/caneproject/sumcanecrush19-20.html">ปริมาณอ้อยเข้าหีบสะสม 62/63</a></h5>
+      <h5><a href="/caneproject/dailycanecrush19-20.html">ปริมาณอ้อยเข้าหีบรายวัน 62/63</a></h5>
+	  <h5><a href="/caneproject/sumcanecrushCompare62-63.html">เปรียบเทียบอ้อยเข้าหีบสะสม 62/63 กับ 61/62</a>
+	  <h5><a href="/caneproject/dailycanecrushCompare62-63.html">เปรียบเทียบอ้อยเข้าหีบรายวัน 62/63 กับ 61/62</a>
+      <h5><a href="#">ผลผลิตน้ำตาลสะสม 62/63</a></h5>
+      <h5><a href="#">ผลผลิตกากน้ำตาลสะสม 62/63</a></h5>
+	  <h5><a href="/caneproject/dailycanecrushCompare62-63.html">เปรียบเทียบอ้อยเข้าหีบ 62/63 กับ 61/62</a></h5>
+    </div>   
+  
+    <div class="w3-container w3-black">
+	  <span onclick="document.getElementById('menu').style.display='none'" class="w3-button w3-display-topright w3-large">x</span>
+      <h3>เปรียบเทียบข้อมูลในอดีต</h3>
+    </div>
+    <div class="w3-container">
+      <h5><a href="/caneproject/endingseason.html">ปริมาณอ้อยเข้าหีบ</a></h5>
+      <h5><a href="/caneproject/endingseason-sugar.html">ผลผลิตน้ำตาล</a></h5>
+	  <h5><a href="/caneproject/endingseason-molasses.html">ผลผลิตกากน้ำตาล</a></h5>
+	  <h5><a href="/caneproject/caneprice.html">ราคาอ้อยขั้นต้นและขั้นสุดท้าย</a></h5>
+	  <h5><a href="/caneproject/exporthistory.html">ปริมาณการส่งออกน้ำตาลรายปี</a></h5>
+	  <h5><a href="/caneproject/monthlyexporthistory.html">ปริมาณการส่งออกน้ำตาลรายเดือน</a></h5>
+	  <h5><a href="/caneproject/molasses_monthly_export_history.html">ปริมาณการส่งออกกากน้ำตาลรายเดือน</a></h5>
+	  <h5><a href="/caneproject/monthly_ethanol_production_history.html">ปริมาณการผลิตเอเทนอลรายเดือน</a></h5>
+	  <h5><a href="/caneproject/annual_ethanol_production_history.html">ปริมาณการผลิตเอเทนอลรายปี</a></h5>
+    </div>  
+  
+	<div class="w3-container w3-black w3-display-container">
+      <span onclick="document.getElementById('menu').style.display='none'" class="w3-button w3-display-topright w3-large">x</span>
+      <h3>ข้อมูลการผลิตปี 2561/62 (ฉบับปิดหีบ)</h3>
+    </div>
+    <div class="w3-container">
+      <h5><a href="/caneproject/sumcanecrush18-19.html">ปริมาณอ้อยเข้าหีบสะสม</a></h5>
+      <h5><a href="/caneproject/dailycanecrush18-19.html">ปริมาณอ้อยเข้าหีบรายวัน</a></h5>
+      <h5><a href="#">ผลผลิตน้ำตาลสะสม</a></h5>
+      <h5><a href="#">ผลผลิตกากน้ำตาลสะสม</a></h5>
+	  <h5><a href="/caneproject/dailycanecrushCompare.html">เปรียบเทียบอ้อยเข้าหีบ 61/62 กับ 60/61</a></h5>
+	  <h5><class="w3-animate-fading">หีบอ้อยเพิ่มขึ้นเทียบกับปี 60/61 ณ วันเดียวกัน 43%</h5>
+    </div>  
+	<div class="w3-container w3-black w3-display-container">
+      <span onclick="document.getElementById('menu').style.display='none'" class="w3-button w3-display-topright w3-large">x</span>
+      <h3>ข้อมูลการผลิตปี 2560/61 (ฉบับปิดหีบ)</h3>
+    </div>
+    <div class="w3-container">
+      <h5><a href="/caneproject/sumcanecrush17-18.html">ปริมาณอ้อยเข้าหีบสะสม</a></h5>
+      <h5><a href="/caneproject/dailycanecrush17-18.html">ปริมาณอ้อยเข้าหีบรายวัน</a></h5>
+      <h5><a href="#">ผลผลิตน้ำตาลสะสม</a></h5>
+      <h5><a href="#">ผลผลิตกากน้ำตาลสะสม</a></h5>
+	  <h5><a href="/caneproject/compareMapping17-18.html">เปรียบเทียบอ้อยเข้าหีบ 60/61 กับ 59/60</a></h5>
+	  <h5><class="w3-animate-fading">หีบอ้อยเพิ่มขึ้นเทียบกับปี 59/60 43%</h5>
+    </div>  
+    <!--div class="w3-container w3-black w3-display-container">
+      <span onclick="document.getElementById('menu').style.display='none'" class="w3-button w3-display-topright w3-large">x</span>
+      <h3>ข้อมูลการผลิตปี 2559/60</h3>
+    </div>
+    <div class="w3-container">
+      <h5><a href="/caneproject/sumcanecrush16-17.html">ปริมาณอ้อยเข้าหีบสะสม</a></h5>
+      <h5><a href="/caneproject/dailycanecrush16-17.html">ปริมาณอ้อยเข้าหีบรายวัน</a></h5>
+      <h5><a href="/caneproject/sumsugarproduction16-17.html">ผลผลิตน้ำตาลสะสม</a></h5>
+      <h5><a href="/caneproject/summolassesproduction16-17.html">ผลผลิตกากน้ำตาลสะสม</a></h5>
+    </div-->
+  </div>
+</div>
+
+<!-- Contact Modal -->
+<div id="contact" class="w3-modal">
+  <div class="w3-modal-content w3-animate-zoom">
+    <div class="w3-container w3-black">
+      <span onclick="document.getElementById('contact').style.display='none'" class="w3-button w3-display-topright w3-large">x</span>
+      <h1>ลิงค์ที่เกี่ยวข้อง</h1>
+    </div>
+    <div class="w3-container">
+	  <h3>ข้อมูลในประเทศ</h3>
+      <h5><a href="https://www.google.co.th/maps/@17.2604779,101.6266885,8.5z/data=!4m2!6m1!1s1saTkRf1_kOAlqXtD9UC4Aqt-gV0">ที่ตั้งโรงงานน้ำตาลในประเทศไทย</a></h5>
+	  <h5><a href="http://canemap.ocsb.go.th/">พื้นที่ปลูกอ้อย(interactive mapping) : สำนักงานคณะกรรมการอ้อยและน้ำตาลทราย</a></h5>
+	  <h5><a href="http://www.thaisugarmillers.com/">สามสมาคมน้ำตาล : เกี่ยวกับข้อมูลการผลิต ข้อมูลการส่งออก คลิปข่าวอ้อยและน้ำตาล พลังงาน</a></h5>
+	  <h5><a href="http://www.sugarzone.in.th/">สำนักบริหารอ้อยและน้ำตาล : ข้อมูลการผลิต ระเบียบประกาศต่างๆ</a></h5>
+	  <h5><a href="http://www.ocsb.go.th/th/home/index.php">สำนักงานคณะกรรมการอ้อยและน้ำตาลทราย : หน่วยงานหลักของราชการ</a></h5>
+	  <h5><a href="http://www.dede.go.th/more_news.php?cid=81&filename=index">การผลิตเอทานอลรายเดือน</a></h5>
+	  <h5><a href="http://agri-map-online.moac.go.th/">การใช้พื้นที่เพาะปลูก กรมพัฒนาที่ดิน</a></h5>
+	  <h5><a href="http://gisinfo.ldd.go.th/">ข้อมูลการใช้ทรัพยากรดิน กรมพัฒนาที่ดิน</a></h5>
+	  <h5><a href="http://www.ocsb.go.th/th/cms/detail.php?ID=923&SystemModuleKey=journal">รายงานพื้นที่ปลูกอ้อยของประเทศไทย : สำนักงานคณะกรรมการอ้อยและน้ำตาลทราย</a></h5>
+	  <h3>ข้อมูลต่างประเทศ</h3>
+	  <h5><a href="https://www.barchart.com/futures/quotes/SB*0/all-futures">ราคาน้ำตาลทรายดิบตลาดโลก</a></h5>
+	  <h5><a href="https://www.barchart.com/futures/quotes/SW*0/all-futures">ราคาน้ำตาลทรายขาวตลาดโลก</a></h5>
+	  <h5><a href="https://tradingeconomics.com/">ข้อมูลเศรษฐกิจ</a></h5>
+	  <h5><a href="https://www.agra-net.com/agra/international-sugar-and-sweetener-report/">หัวข้อข่าวอ้อยและน้ำตาล F.O.Licht</a></h5>	  
+    </div>
+  </div>
+</div>
+
+<!-- AboutUS Modal -->
+<div id="aboutUs" class="w3-modal">
+  <div class="w3-modal-content w3-animate-zoom">
+    <div class="w3-container w3-black">
+      <span onclick="document.getElementById('aboutUs').style.display='none'" class="w3-button w3-display-topright w3-large">x</span>
+      <h1>เกี่ยวกับเว็บไซต์</h1>
+    </div>
+    <div class="w3-container">
+	  <h3>เว็บไซต์นี้เป็นเว็บไซต์ที่สร้างขึ้นเพื่อให้ผู้ที่มีความสนใจในอุตสาหกรรมอ้อยและน้ำตาล ได้ใช้ข้อมูลเชิงภาพ(visual) แสดงข้อมูลแบบตอบสนอง(responsive) สามารถเปรียบเทียบข้อมูลได้ชัดเจนมากยิ่งขึ้น หากมีข้อติชมไดๆ ส่งมาที่ admin@songtabber.com</h3>
+	  <h3><a href="changelog.html">บันทึกการเปลี่ยนแปลง</a></h3>
+    </div>
+  </div>
+</div>
+
+
+</body>
+</html>
+
